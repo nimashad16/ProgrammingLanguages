@@ -1,0 +1,28 @@
+@hi
+@sum_x
+
+repeat until
+
+while declare
+
+@i_val
+@i1j2kl_
+
+integer float
+
+@user_def_42
+@pi_3_14_
+3.1415
+
+foreach begin end
+
++15.000009
+
+if then print
+  
+-0.12345
+0.99
+
+< > <= >= == ~= 
+++ + += * - /
+ijk

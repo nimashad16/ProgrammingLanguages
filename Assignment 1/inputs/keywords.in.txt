@@ -1,0 +1,13 @@
+
+repeat until
+
+while declare
+
+
+integer float
+
+foreach begin end
+
+if then print
+  
+ijk
