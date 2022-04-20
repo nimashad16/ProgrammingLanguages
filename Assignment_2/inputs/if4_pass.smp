@@ -1,0 +1,6 @@
+
+foreach a in (M:N)
+  if (a > 1) then
+    B[a] := a + 1
+  else
+    B[a] := a * 2;

@@ -1,0 +1,9 @@
+
+foreach i in (1:M)
+begin
+  foreach j in (1:N)
+  begin
+    A[i][j] := (i+j) / (i+j+1);
+    write A[i][j]
+  end
+end;

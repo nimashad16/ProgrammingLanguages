@@ -1,0 +1,4 @@
+
+foreach a in (M:N)
+  if (a > 1) then
+    write mat[a];

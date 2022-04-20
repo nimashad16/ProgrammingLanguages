@@ -1,0 +1,1341 @@
+Terminals unused in grammar
+
+    T_DECLARE
+    T_INTEGER
+    T_FLOAT
+
+
+State 57 conflicts: 1 shift/reduce
+State 86 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: stmt_list ';'
+
+    2 stmt_list: stmt_list ';' stmt
+    3          | stmt
+
+    4 stmt: assignment
+    5     | read
+    6     | write
+    7     | while
+    8     | repeat
+    9     | block
+   10     | foreach
+   11     | if_stmt
+
+   12 block: T_BEGIN stmt_list T_END
+
+   13 foreach: T_FOREACH T_ID T_IN '(' a_expr ':' T_ID ')' stmt
+
+   14 while: T_WHILE l_expr stmt
+
+   15 repeat: T_REPEAT stmt_list T_UNTIL l_expr
+
+   16 if_stmt: T_IF l_expr T_THEN stmt else_stmt
+
+   17 else_stmt: T_ELSE stmt
+   18          | %empty
+
+   19 assignment: varref T_ASSIGN l_expr
+
+   20 a_expr: a_expr T_ADD a_term
+   21       | a_expr T_SUB a_term
+   22       | a_term
+
+   23 a_term: a_term T_MUL a_fact
+   24       | a_term T_DIV a_fact
+   25       | a_fact
+
+   26 a_fact: varref
+   27       | T_NUM
+   28       | T_LITERAL_STR
+   29       | T_SUB a_fact
+   30       | '(' a_expr ')'
+
+   31 varref: T_ID
+   32       | varref '[' a_expr ']'
+
+   33 l_expr: l_expr T_AND l_term
+   34       | l_term
+
+   35 l_term: l_term T_OR l_fact
+   36       | l_fact
+
+   37 l_fact: l_fact oprel a_expr
+   38       | a_expr
+   39       | '(' l_expr ')'
+
+   40 oprel: T_LT
+   41      | T_GT
+   42      | T_LEQ
+   43      | T_GEQ
+   44      | T_EQ
+   45      | T_NEQ
+
+   46 read: T_READ varlist
+
+   47 write: T_WRITE expr_list
+
+   48 varlist: varref ',' varref
+   49        | varref
+
+   50 expr_list: a_expr ',' a_expr
+   51          | a_expr
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '(' (40) 13 30 39
+    ')' (41) 13 30 39
+    ',' (44) 48 50
+    ':' (58) 13
+    ';' (59) 1 2
+    '[' (91) 32
+    ']' (93) 32
+    error (256)
+    T_ID (258) 13 31
+    T_NUM (259) 27
+    T_ADD (260) 20
+    T_SUB (261) 21 29
+    T_MUL (262) 23
+    T_DIV (263) 24
+    T_LT (264) 40
+    T_GT (265) 41
+    T_LEQ (266) 42
+    T_GEQ (267) 43
+    T_EQ (268) 44
+    T_NEQ (269) 45
+    T_AND (270) 33
+    T_OR (271) 35
+    T_READ (272) 46
+    T_WRITE (273) 47
+    T_ASSIGN (274) 19
+    T_BEGIN (275) 12
+    T_END (276) 12
+    T_FOREACH (277) 13
+    T_IN (278) 13
+    T_REPEAT (279) 15
+    T_UNTIL (280) 15
+    T_WHILE (281) 14
+    T_IF (282) 16
+    T_THEN (283) 16
+    T_ELSE (284) 17
+    T_DECLARE (285)
+    T_INTEGER (286)
+    T_FLOAT (287)
+    T_LITERAL_STR (288) 28
+
+
+Nonterminals, with rules where they appear
+
+    $accept (41)
+        on left: 0
+    program (42)
+        on left: 1
+        on right: 0
+    stmt_list (43)
+        on left: 2 3
+        on right: 1 2 12 15
+    stmt (44)
+        on left: 4 5 6 7 8 9 10 11
+        on right: 2 3 13 14 16 17
+    block (45)
+        on left: 12
+        on right: 9
+    foreach (46)
+        on left: 13
+        on right: 10
+    while (47)
+        on left: 14
+        on right: 7
+    repeat (48)
+        on left: 15
+        on right: 8
+    if_stmt (49)
+        on left: 16
+        on right: 11
+    else_stmt (50)
+        on left: 17 18
+        on right: 16
+    assignment (51)
+        on left: 19
+        on right: 4
+    a_expr (52)
+        on left: 20 21 22
+        on right: 13 20 21 30 32 37 38 50 51
+    a_term (53)
+        on left: 23 24 25
+        on right: 20 21 22 23 24
+    a_fact (54)
+        on left: 26 27 28 29 30
+        on right: 23 24 25 29
+    varref (55)
+        on left: 31 32
+        on right: 19 26 32 48 49
+    l_expr (56)
+        on left: 33 34
+        on right: 14 15 16 19 33 39
+    l_term (57)
+        on left: 35 36
+        on right: 33 34 35
+    l_fact (58)
+        on left: 37 38 39
+        on right: 35 36 37
+    oprel (59)
+        on left: 40 41 42 43 44 45
+        on right: 37
+    read (60)
+        on left: 46
+        on right: 5
+    write (61)
+        on left: 47
+        on right: 6
+    varlist (62)
+        on left: 48 49
+        on right: 46
+    expr_list (63)
+        on left: 50 51
+        on right: 47
+
+
+State 0
+
+    0 $accept: . program $end
+
+    T_ID       shift, and go to state 1
+    T_READ     shift, and go to state 2
+    T_WRITE    shift, and go to state 3
+    T_BEGIN    shift, and go to state 4
+    T_FOREACH  shift, and go to state 5
+    T_REPEAT   shift, and go to state 6
+    T_WHILE    shift, and go to state 7
+    T_IF       shift, and go to state 8
+
+    program     go to state 9
+    stmt_list   go to state 10
+    stmt        go to state 11
+    block       go to state 12
+    foreach     go to state 13
+    while       go to state 14
+    repeat      go to state 15
+    if_stmt     go to state 16
+    assignment  go to state 17
+    varref      go to state 18
+    read        go to state 19
+    write       go to state 20
+
+
+State 1
+
+   31 varref: T_ID .
+
+    $default  reduce using rule 31 (varref)
+
+
+State 2
+
+   46 read: T_READ . varlist
+
+    T_ID  shift, and go to state 1
+
+    varref   go to state 21
+    varlist  go to state 22
+
+
+State 3
+
+   47 write: T_WRITE . expr_list
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_expr     go to state 27
+    a_term     go to state 28
+    a_fact     go to state 29
+    varref     go to state 30
+    expr_list  go to state 31
+
+
+State 4
+
+   12 block: T_BEGIN . stmt_list T_END
+
+    T_ID       shift, and go to state 1
+    T_READ     shift, and go to state 2
+    T_WRITE    shift, and go to state 3
+    T_BEGIN    shift, and go to state 4
+    T_FOREACH  shift, and go to state 5
+    T_REPEAT   shift, and go to state 6
+    T_WHILE    shift, and go to state 7
+    T_IF       shift, and go to state 8
+
+    stmt_list   go to state 32
+    stmt        go to state 11
+    block       go to state 12
+    foreach     go to state 13
+    while       go to state 14
+    repeat      go to state 15
+    if_stmt     go to state 16
+    assignment  go to state 17
+    varref      go to state 18
+    read        go to state 19
+    write       go to state 20
+
+
+State 5
+
+   13 foreach: T_FOREACH . T_ID T_IN '(' a_expr ':' T_ID ')' stmt
+
+    T_ID  shift, and go to state 33
+
+
+State 6
+
+   15 repeat: T_REPEAT . stmt_list T_UNTIL l_expr
+
+    T_ID       shift, and go to state 1
+    T_READ     shift, and go to state 2
+    T_WRITE    shift, and go to state 3
+    T_BEGIN    shift, and go to state 4
+    T_FOREACH  shift, and go to state 5
+    T_REPEAT   shift, and go to state 6
+    T_WHILE    shift, and go to state 7
+    T_IF       shift, and go to state 8
+
+    stmt_list   go to state 34
+    stmt        go to state 11
+    block       go to state 12
+    foreach     go to state 13
+    while       go to state 14
+    repeat      go to state 15
+    if_stmt     go to state 16
+    assignment  go to state 17
+    varref      go to state 18
+    read        go to state 19
+    write       go to state 20
+
+
+State 7
+
+   14 while: T_WHILE . l_expr stmt
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 35
+
+    a_expr  go to state 36
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+    l_expr  go to state 37
+    l_term  go to state 38
+    l_fact  go to state 39
+
+
+State 8
+
+   16 if_stmt: T_IF . l_expr T_THEN stmt else_stmt
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 35
+
+    a_expr  go to state 36
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+    l_expr  go to state 40
+    l_term  go to state 38
+    l_fact  go to state 39
+
+
+State 9
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 41
+
+
+State 10
+
+    1 program: stmt_list . ';'
+    2 stmt_list: stmt_list . ';' stmt
+
+    ';'  shift, and go to state 42
+
+
+State 11
+
+    3 stmt_list: stmt .
+
+    $default  reduce using rule 3 (stmt_list)
+
+
+State 12
+
+    9 stmt: block .
+
+    $default  reduce using rule 9 (stmt)
+
+
+State 13
+
+   10 stmt: foreach .
+
+    $default  reduce using rule 10 (stmt)
+
+
+State 14
+
+    7 stmt: while .
+
+    $default  reduce using rule 7 (stmt)
+
+
+State 15
+
+    8 stmt: repeat .
+
+    $default  reduce using rule 8 (stmt)
+
+
+State 16
+
+   11 stmt: if_stmt .
+
+    $default  reduce using rule 11 (stmt)
+
+
+State 17
+
+    4 stmt: assignment .
+
+    $default  reduce using rule 4 (stmt)
+
+
+State 18
+
+   19 assignment: varref . T_ASSIGN l_expr
+   32 varref: varref . '[' a_expr ']'
+
+    T_ASSIGN  shift, and go to state 43
+    '['       shift, and go to state 44
+
+
+State 19
+
+    5 stmt: read .
+
+    $default  reduce using rule 5 (stmt)
+
+
+State 20
+
+    6 stmt: write .
+
+    $default  reduce using rule 6 (stmt)
+
+
+State 21
+
+   32 varref: varref . '[' a_expr ']'
+   48 varlist: varref . ',' varref
+   49        | varref .
+
+    '['  shift, and go to state 44
+    ','  shift, and go to state 45
+
+    $default  reduce using rule 49 (varlist)
+
+
+State 22
+
+   46 read: T_READ varlist .
+
+    $default  reduce using rule 46 (read)
+
+
+State 23
+
+   27 a_fact: T_NUM .
+
+    $default  reduce using rule 27 (a_fact)
+
+
+State 24
+
+   29 a_fact: T_SUB . a_fact
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_fact  go to state 46
+    varref  go to state 30
+
+
+State 25
+
+   28 a_fact: T_LITERAL_STR .
+
+    $default  reduce using rule 28 (a_fact)
+
+
+State 26
+
+   30 a_fact: '(' . a_expr ')'
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_expr  go to state 47
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+
+
+State 27
+
+   20 a_expr: a_expr . T_ADD a_term
+   21       | a_expr . T_SUB a_term
+   50 expr_list: a_expr . ',' a_expr
+   51          | a_expr .
+
+    T_ADD  shift, and go to state 48
+    T_SUB  shift, and go to state 49
+    ','    shift, and go to state 50
+
+    $default  reduce using rule 51 (expr_list)
+
+
+State 28
+
+   22 a_expr: a_term .
+   23 a_term: a_term . T_MUL a_fact
+   24       | a_term . T_DIV a_fact
+
+    T_MUL  shift, and go to state 51
+    T_DIV  shift, and go to state 52
+
+    $default  reduce using rule 22 (a_expr)
+
+
+State 29
+
+   25 a_term: a_fact .
+
+    $default  reduce using rule 25 (a_term)
+
+
+State 30
+
+   26 a_fact: varref .
+   32 varref: varref . '[' a_expr ']'
+
+    '['  shift, and go to state 44
+
+    $default  reduce using rule 26 (a_fact)
+
+
+State 31
+
+   47 write: T_WRITE expr_list .
+
+    $default  reduce using rule 47 (write)
+
+
+State 32
+
+    2 stmt_list: stmt_list . ';' stmt
+   12 block: T_BEGIN stmt_list . T_END
+
+    T_END  shift, and go to state 53
+    ';'    shift, and go to state 54
+
+
+State 33
+
+   13 foreach: T_FOREACH T_ID . T_IN '(' a_expr ':' T_ID ')' stmt
+
+    T_IN  shift, and go to state 55
+
+
+State 34
+
+    2 stmt_list: stmt_list . ';' stmt
+   15 repeat: T_REPEAT stmt_list . T_UNTIL l_expr
+
+    T_UNTIL  shift, and go to state 56
+    ';'      shift, and go to state 54
+
+
+State 35
+
+   30 a_fact: '(' . a_expr ')'
+   39 l_fact: '(' . l_expr ')'
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 35
+
+    a_expr  go to state 57
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+    l_expr  go to state 58
+    l_term  go to state 38
+    l_fact  go to state 39
+
+
+State 36
+
+   20 a_expr: a_expr . T_ADD a_term
+   21       | a_expr . T_SUB a_term
+   38 l_fact: a_expr .
+
+    T_ADD  shift, and go to state 48
+    T_SUB  shift, and go to state 49
+
+    $default  reduce using rule 38 (l_fact)
+
+
+State 37
+
+   14 while: T_WHILE l_expr . stmt
+   33 l_expr: l_expr . T_AND l_term
+
+    T_ID       shift, and go to state 1
+    T_AND      shift, and go to state 59
+    T_READ     shift, and go to state 2
+    T_WRITE    shift, and go to state 3
+    T_BEGIN    shift, and go to state 4
+    T_FOREACH  shift, and go to state 5
+    T_REPEAT   shift, and go to state 6
+    T_WHILE    shift, and go to state 7
+    T_IF       shift, and go to state 8
+
+    stmt        go to state 60
+    block       go to state 12
+    foreach     go to state 13
+    while       go to state 14
+    repeat      go to state 15
+    if_stmt     go to state 16
+    assignment  go to state 17
+    varref      go to state 18
+    read        go to state 19
+    write       go to state 20
+
+
+State 38
+
+   34 l_expr: l_term .
+   35 l_term: l_term . T_OR l_fact
+
+    T_OR  shift, and go to state 61
+
+    $default  reduce using rule 34 (l_expr)
+
+
+State 39
+
+   36 l_term: l_fact .
+   37 l_fact: l_fact . oprel a_expr
+
+    T_LT   shift, and go to state 62
+    T_GT   shift, and go to state 63
+    T_LEQ  shift, and go to state 64
+    T_GEQ  shift, and go to state 65
+    T_EQ   shift, and go to state 66
+    T_NEQ  shift, and go to state 67
+
+    $default  reduce using rule 36 (l_term)
+
+    oprel  go to state 68
+
+
+State 40
+
+   16 if_stmt: T_IF l_expr . T_THEN stmt else_stmt
+   33 l_expr: l_expr . T_AND l_term
+
+    T_AND   shift, and go to state 59
+    T_THEN  shift, and go to state 69
+
+
+State 41
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 42
+
+    1 program: stmt_list ';' .
+    2 stmt_list: stmt_list ';' . stmt
+
+    T_ID       shift, and go to state 1
+    T_READ     shift, and go to state 2
+    T_WRITE    shift, and go to state 3
+    T_BEGIN    shift, and go to state 4
+    T_FOREACH  shift, and go to state 5
+    T_REPEAT   shift, and go to state 6
+    T_WHILE    shift, and go to state 7
+    T_IF       shift, and go to state 8
+
+    $default  reduce using rule 1 (program)
+
+    stmt        go to state 70
+    block       go to state 12
+    foreach     go to state 13
+    while       go to state 14
+    repeat      go to state 15
+    if_stmt     go to state 16
+    assignment  go to state 17
+    varref      go to state 18
+    read        go to state 19
+    write       go to state 20
+
+
+State 43
+
+   19 assignment: varref T_ASSIGN . l_expr
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 35
+
+    a_expr  go to state 36
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+    l_expr  go to state 71
+    l_term  go to state 38
+    l_fact  go to state 39
+
+
+State 44
+
+   32 varref: varref '[' . a_expr ']'
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_expr  go to state 72
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+
+
+State 45
+
+   48 varlist: varref ',' . varref
+
+    T_ID  shift, and go to state 1
+
+    varref  go to state 73
+
+
+State 46
+
+   29 a_fact: T_SUB a_fact .
+
+    $default  reduce using rule 29 (a_fact)
+
+
+State 47
+
+   20 a_expr: a_expr . T_ADD a_term
+   21       | a_expr . T_SUB a_term
+   30 a_fact: '(' a_expr . ')'
+
+    T_ADD  shift, and go to state 48
+    T_SUB  shift, and go to state 49
+    ')'    shift, and go to state 74
+
+
+State 48
+
+   20 a_expr: a_expr T_ADD . a_term
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_term  go to state 75
+    a_fact  go to state 29
+    varref  go to state 30
+
+
+State 49
+
+   21 a_expr: a_expr T_SUB . a_term
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_term  go to state 76
+    a_fact  go to state 29
+    varref  go to state 30
+
+
+State 50
+
+   50 expr_list: a_expr ',' . a_expr
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_expr  go to state 77
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+
+
+State 51
+
+   23 a_term: a_term T_MUL . a_fact
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_fact  go to state 78
+    varref  go to state 30
+
+
+State 52
+
+   24 a_term: a_term T_DIV . a_fact
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_fact  go to state 79
+    varref  go to state 30
+
+
+State 53
+
+   12 block: T_BEGIN stmt_list T_END .
+
+    $default  reduce using rule 12 (block)
+
+
+State 54
+
+    2 stmt_list: stmt_list ';' . stmt
+
+    T_ID       shift, and go to state 1
+    T_READ     shift, and go to state 2
+    T_WRITE    shift, and go to state 3
+    T_BEGIN    shift, and go to state 4
+    T_FOREACH  shift, and go to state 5
+    T_REPEAT   shift, and go to state 6
+    T_WHILE    shift, and go to state 7
+    T_IF       shift, and go to state 8
+
+    stmt        go to state 70
+    block       go to state 12
+    foreach     go to state 13
+    while       go to state 14
+    repeat      go to state 15
+    if_stmt     go to state 16
+    assignment  go to state 17
+    varref      go to state 18
+    read        go to state 19
+    write       go to state 20
+
+
+State 55
+
+   13 foreach: T_FOREACH T_ID T_IN . '(' a_expr ':' T_ID ')' stmt
+
+    '('  shift, and go to state 80
+
+
+State 56
+
+   15 repeat: T_REPEAT stmt_list T_UNTIL . l_expr
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 35
+
+    a_expr  go to state 36
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+    l_expr  go to state 81
+    l_term  go to state 38
+    l_fact  go to state 39
+
+
+State 57
+
+   20 a_expr: a_expr . T_ADD a_term
+   21       | a_expr . T_SUB a_term
+   30 a_fact: '(' a_expr . ')'
+   38 l_fact: a_expr .
+
+    T_ADD  shift, and go to state 48
+    T_SUB  shift, and go to state 49
+    ')'    shift, and go to state 74
+
+    ')'       [reduce using rule 38 (l_fact)]
+    $default  reduce using rule 38 (l_fact)
+
+
+State 58
+
+   33 l_expr: l_expr . T_AND l_term
+   39 l_fact: '(' l_expr . ')'
+
+    T_AND  shift, and go to state 59
+    ')'    shift, and go to state 82
+
+
+State 59
+
+   33 l_expr: l_expr T_AND . l_term
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 35
+
+    a_expr  go to state 36
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+    l_term  go to state 83
+    l_fact  go to state 39
+
+
+State 60
+
+   14 while: T_WHILE l_expr stmt .
+
+    $default  reduce using rule 14 (while)
+
+
+State 61
+
+   35 l_term: l_term T_OR . l_fact
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 35
+
+    a_expr  go to state 36
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+    l_fact  go to state 84
+
+
+State 62
+
+   40 oprel: T_LT .
+
+    $default  reduce using rule 40 (oprel)
+
+
+State 63
+
+   41 oprel: T_GT .
+
+    $default  reduce using rule 41 (oprel)
+
+
+State 64
+
+   42 oprel: T_LEQ .
+
+    $default  reduce using rule 42 (oprel)
+
+
+State 65
+
+   43 oprel: T_GEQ .
+
+    $default  reduce using rule 43 (oprel)
+
+
+State 66
+
+   44 oprel: T_EQ .
+
+    $default  reduce using rule 44 (oprel)
+
+
+State 67
+
+   45 oprel: T_NEQ .
+
+    $default  reduce using rule 45 (oprel)
+
+
+State 68
+
+   37 l_fact: l_fact oprel . a_expr
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_expr  go to state 85
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+
+
+State 69
+
+   16 if_stmt: T_IF l_expr T_THEN . stmt else_stmt
+
+    T_ID       shift, and go to state 1
+    T_READ     shift, and go to state 2
+    T_WRITE    shift, and go to state 3
+    T_BEGIN    shift, and go to state 4
+    T_FOREACH  shift, and go to state 5
+    T_REPEAT   shift, and go to state 6
+    T_WHILE    shift, and go to state 7
+    T_IF       shift, and go to state 8
+
+    stmt        go to state 86
+    block       go to state 12
+    foreach     go to state 13
+    while       go to state 14
+    repeat      go to state 15
+    if_stmt     go to state 16
+    assignment  go to state 17
+    varref      go to state 18
+    read        go to state 19
+    write       go to state 20
+
+
+State 70
+
+    2 stmt_list: stmt_list ';' stmt .
+
+    $default  reduce using rule 2 (stmt_list)
+
+
+State 71
+
+   19 assignment: varref T_ASSIGN l_expr .
+   33 l_expr: l_expr . T_AND l_term
+
+    T_AND  shift, and go to state 59
+
+    $default  reduce using rule 19 (assignment)
+
+
+State 72
+
+   20 a_expr: a_expr . T_ADD a_term
+   21       | a_expr . T_SUB a_term
+   32 varref: varref '[' a_expr . ']'
+
+    T_ADD  shift, and go to state 48
+    T_SUB  shift, and go to state 49
+    ']'    shift, and go to state 87
+
+
+State 73
+
+   32 varref: varref . '[' a_expr ']'
+   48 varlist: varref ',' varref .
+
+    '['  shift, and go to state 44
+
+    $default  reduce using rule 48 (varlist)
+
+
+State 74
+
+   30 a_fact: '(' a_expr ')' .
+
+    $default  reduce using rule 30 (a_fact)
+
+
+State 75
+
+   20 a_expr: a_expr T_ADD a_term .
+   23 a_term: a_term . T_MUL a_fact
+   24       | a_term . T_DIV a_fact
+
+    T_MUL  shift, and go to state 51
+    T_DIV  shift, and go to state 52
+
+    $default  reduce using rule 20 (a_expr)
+
+
+State 76
+
+   21 a_expr: a_expr T_SUB a_term .
+   23 a_term: a_term . T_MUL a_fact
+   24       | a_term . T_DIV a_fact
+
+    T_MUL  shift, and go to state 51
+    T_DIV  shift, and go to state 52
+
+    $default  reduce using rule 21 (a_expr)
+
+
+State 77
+
+   20 a_expr: a_expr . T_ADD a_term
+   21       | a_expr . T_SUB a_term
+   50 expr_list: a_expr ',' a_expr .
+
+    T_ADD  shift, and go to state 48
+    T_SUB  shift, and go to state 49
+
+    $default  reduce using rule 50 (expr_list)
+
+
+State 78
+
+   23 a_term: a_term T_MUL a_fact .
+
+    $default  reduce using rule 23 (a_term)
+
+
+State 79
+
+   24 a_term: a_term T_DIV a_fact .
+
+    $default  reduce using rule 24 (a_term)
+
+
+State 80
+
+   13 foreach: T_FOREACH T_ID T_IN '(' . a_expr ':' T_ID ')' stmt
+
+    T_ID           shift, and go to state 1
+    T_NUM          shift, and go to state 23
+    T_SUB          shift, and go to state 24
+    T_LITERAL_STR  shift, and go to state 25
+    '('            shift, and go to state 26
+
+    a_expr  go to state 88
+    a_term  go to state 28
+    a_fact  go to state 29
+    varref  go to state 30
+
+
+State 81
+
+   15 repeat: T_REPEAT stmt_list T_UNTIL l_expr .
+   33 l_expr: l_expr . T_AND l_term
+
+    T_AND  shift, and go to state 59
+
+    $default  reduce using rule 15 (repeat)
+
+
+State 82
+
+   39 l_fact: '(' l_expr ')' .
+
+    $default  reduce using rule 39 (l_fact)
+
+
+State 83
+
+   33 l_expr: l_expr T_AND l_term .
+   35 l_term: l_term . T_OR l_fact
+
+    T_OR  shift, and go to state 61
+
+    $default  reduce using rule 33 (l_expr)
+
+
+State 84
+
+   35 l_term: l_term T_OR l_fact .
+   37 l_fact: l_fact . oprel a_expr
+
+    T_LT   shift, and go to state 62
+    T_GT   shift, and go to state 63
+    T_LEQ  shift, and go to state 64
+    T_GEQ  shift, and go to state 65
+    T_EQ   shift, and go to state 66
+    T_NEQ  shift, and go to state 67
+
+    $default  reduce using rule 35 (l_term)
+
+    oprel  go to state 68
+
+
+State 85
+
+   20 a_expr: a_expr . T_ADD a_term
+   21       | a_expr . T_SUB a_term
+   37 l_fact: l_fact oprel a_expr .
+
+    T_ADD  shift, and go to state 48
+    T_SUB  shift, and go to state 49
+
+    $default  reduce using rule 37 (l_fact)
+
+
+State 86
+
+   16 if_stmt: T_IF l_expr T_THEN stmt . else_stmt
+
+    T_ELSE  shift, and go to state 89
+
+    T_ELSE    [reduce using rule 18 (else_stmt)]
+    $default  reduce using rule 18 (else_stmt)
+
+    else_stmt  go to state 90
+
+
+State 87
+
+   32 varref: varref '[' a_expr ']' .
+
+    $default  reduce using rule 32 (varref)
+
+
+State 88
+
+   13 foreach: T_FOREACH T_ID T_IN '(' a_expr . ':' T_ID ')' stmt
+   20 a_expr: a_expr . T_ADD a_term
+   21       | a_expr . T_SUB a_term
+
+    T_ADD  shift, and go to state 48
+    T_SUB  shift, and go to state 49
+    ':'    shift, and go to state 91
+
+
+State 89
+
+   17 else_stmt: T_ELSE . stmt
+
+    T_ID       shift, and go to state 1
+    T_READ     shift, and go to state 2
+    T_WRITE    shift, and go to state 3
+    T_BEGIN    shift, and go to state 4
+    T_FOREACH  shift, and go to state 5
+    T_REPEAT   shift, and go to state 6
+    T_WHILE    shift, and go to state 7
+    T_IF       shift, and go to state 8
+
+    stmt        go to state 92
+    block       go to state 12
+    foreach     go to state 13
+    while       go to state 14
+    repeat      go to state 15
+    if_stmt     go to state 16
+    assignment  go to state 17
+    varref      go to state 18
+    read        go to state 19
+    write       go to state 20
+
+
+State 90
+
+   16 if_stmt: T_IF l_expr T_THEN stmt else_stmt .
+
+    $default  reduce using rule 16 (if_stmt)
+
+
+State 91
+
+   13 foreach: T_FOREACH T_ID T_IN '(' a_expr ':' . T_ID ')' stmt
+
+    T_ID  shift, and go to state 93
+
+
+State 92
+
+   17 else_stmt: T_ELSE stmt .
+
+    $default  reduce using rule 17 (else_stmt)
+
+
+State 93
+
+   13 foreach: T_FOREACH T_ID T_IN '(' a_expr ':' T_ID . ')' stmt
+
+    ')'  shift, and go to state 94
+
+
+State 94
+
+   13 foreach: T_FOREACH T_ID T_IN '(' a_expr ':' T_ID ')' . stmt
+
+    T_ID       shift, and go to state 1
+    T_READ     shift, and go to state 2
+    T_WRITE    shift, and go to state 3
+    T_BEGIN    shift, and go to state 4
+    T_FOREACH  shift, and go to state 5
+    T_REPEAT   shift, and go to state 6
+    T_WHILE    shift, and go to state 7
+    T_IF       shift, and go to state 8
+
+    stmt        go to state 95
+    block       go to state 12
+    foreach     go to state 13
+    while       go to state 14
+    repeat      go to state 15
+    if_stmt     go to state 16
+    assignment  go to state 17
+    varref      go to state 18
+    read        go to state 19
+    write       go to state 20
+
+
+State 95
+
+   13 foreach: T_FOREACH T_ID T_IN '(' a_expr ':' T_ID ')' stmt .
+
+    $default  reduce using rule 13 (foreach)
