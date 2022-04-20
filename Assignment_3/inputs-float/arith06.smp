@@ -1,0 +1,7 @@
+float a;
+float b;
+float c;
+a := 1.0;
+b := a + 1.0;
+c := b * 2.0 + 1.0;
+write -c;

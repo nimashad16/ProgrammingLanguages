@@ -1,0 +1,7 @@
+int a;
+int b;
+int c;
+a := 1;
+b := a + 1;
+c := b * 2 + 1;
+write -c;
