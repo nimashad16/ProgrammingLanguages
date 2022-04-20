@@ -1,0 +1,12 @@
+int a;
+a := 1;
+repeat
+  int b;
+  b := 0;
+  repeat 
+    write a;
+    write b;
+    b := b + 1
+  until (b > 4);
+  a := a + 1
+until (a > 3);

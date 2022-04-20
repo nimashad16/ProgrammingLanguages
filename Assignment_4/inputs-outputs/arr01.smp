@@ -1,0 +1,4 @@
+int a[3];
+a[1] := 1;
+write a[0];
+write a[1];

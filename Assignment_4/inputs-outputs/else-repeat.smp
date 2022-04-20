@@ -1,0 +1,13 @@
+int a;
+a := 3;
+if (a < 2)
+  repeat
+    write a;
+    a := a + 1
+  until (a > 5)
+else
+  repeat
+    write a;
+    a := a + 2
+  until (a > 8);
+

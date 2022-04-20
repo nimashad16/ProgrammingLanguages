@@ -1,0 +1,14 @@
+float a[10];
+int i;
+i := 1;
+while (i < 5) do 
+begin
+a[i] := i;
+i := i + 1
+end;
+i := 1;
+while (i < 5) do 
+begin
+write a[i];
+i := i + 1
+end;

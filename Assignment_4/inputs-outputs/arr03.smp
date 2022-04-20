@@ -1,0 +1,18 @@
+int a[10];
+int i;
+i := 1;
+while (i < 5) do 
+begin
+a[i] := i;
+i := i + 1
+end;
+i := 1;
+while (i < 5) do 
+begin
+  if (a[i] <= 2)
+    write a[i]
+  else
+    write 2*a[i];
+  i := i + 1
+end;
+write i;

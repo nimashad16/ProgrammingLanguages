@@ -1,0 +1,38 @@
+float a[10];
+float temp;
+int i;
+int j;
+a[0] := 15;
+a[1] := 13;
+a[2] := 5;
+a[3] := 21;
+a[4] := 78;
+a[5] := 94;
+a[6] := 6;
+a[7] := 50;
+a[8] := 1;
+a[9] := 33;
+
+i := 0;
+while (i < 9) do 
+begin
+  j := i+1;
+  while (j < 10) do 
+  begin
+    if (a[j] < a[i])
+    begin
+      temp := a[i];
+      a[i] := a[j];
+      a[j] := temp
+    end;
+    j := j + 1
+  end;
+  i := i + 1
+end;
+
+i := 0;
+while (i < 10) do 
+begin
+  write a[i];
+  i := i + 1
+end;

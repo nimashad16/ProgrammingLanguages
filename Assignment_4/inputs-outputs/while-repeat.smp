@@ -1,0 +1,13 @@
+int a;
+a := 1;
+while (a < 3) do 
+begin
+  int b;
+  b := 0;
+  repeat 
+    write b;
+    write a;
+    b := b + 1
+  until (b > 5);
+  a := a + 1
+end;

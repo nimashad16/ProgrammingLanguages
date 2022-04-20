@@ -1,0 +1,7 @@
+int a;
+a := 1;
+if (a < 2)
+  write a-1
+else
+  write a+1;
+
